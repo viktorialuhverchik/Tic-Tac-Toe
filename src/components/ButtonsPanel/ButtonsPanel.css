@@ -1,0 +1,29 @@
+.buttons-panel {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2em;
+
+}
+
+.button {
+    margin-right:0.5em;
+    width: 150px;
+    height: 35px;
+    background-color: #b9a195;
+    border: 0.3px solid #765b58;
+    border-radius: 0.5em;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 2px 2px 3px #867e7d;
+}
+
+.button-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #69524f;
+
+}
+
+.clicked {
+    box-shadow: inset 1px 1px 4px #765b58;
+}

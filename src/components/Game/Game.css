@@ -1,0 +1,20 @@
+.game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-board {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 310px;
+}
+
+.board-square {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    background-color: #d5a069;
+    border: 1px solid #765b58;
+    cursor: pointer;
+}
