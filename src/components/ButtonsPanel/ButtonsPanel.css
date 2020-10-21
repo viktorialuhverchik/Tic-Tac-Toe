@@ -10,7 +10,7 @@
     width: 150px;
     height: 35px;
     background-color: #b9a195;
-    border: 0.3px solid #765b58;
+    border: 1px solid #b99e90;
     border-radius: 0.5em;
     outline: none;
     cursor: pointer;
@@ -26,4 +26,8 @@
 
 .clicked {
     box-shadow: inset 1px 1px 4px #765b58;
+}
+
+.blocked {
+    pointer-events: none;
 }

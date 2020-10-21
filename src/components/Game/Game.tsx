@@ -1,48 +1,116 @@
-import React, { FC, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { PropsGame } from '../../types';
-import { State } from '../../types';
+import { addUserMove, updateBoard } from '../../redux/actions/actions';
 
 import './Game.css';
-import { addUserMove, updateMoves } from '../../redux/actions/actions';
 
-const Game: FC<PropsGame> = ({ isUserFirst }) => {
+const Game: FC<PropsGame> = ({ isUserFirst, moves, userMoves }) => {
 
     const dispatch: any = useDispatch();
-    const moves: number[] = useSelector((state: State) => state.game.moves);
-    const userMoves: number[] = useSelector((state: State) => state.game.userMoves);
-    const squares: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    const [symbol, setSymbol] = useState<string>("");
+    const [board, setBoard] = useState([
+        [
+            {
+                id: 1,
+                value: ""
+            },
+            {
+                id: 2,
+                value: ""
+            },
+            {
+                id: 3,
+                value: ""
+            }
+        ],
+        [
+            {
+                id: 4,
+                value: ""
+            },
+            {
+                id: 5,
+                value: ""
+            },
+            {
+                id: 6,
+                value: ""
+            }
+        ],
+        [
+            {
+                id: 7,
+                value: ""
+            },
+            {
+                id: 8,
+                value: ""
+            },
+            {
+                id: 9,
+                value: ""
+            }
+        ]
+    ]);
 
-    const handleClick = (square: number) => {
-        console.log(square);
-        if (isUserFirst) {
-            setSymbol("X")
-        } else {
-            setSymbol("O");
-        }
-        dispatch(addUserMove(square));
-        dispatch(updateMoves(moves, square));
+    const generateGameMove = () => {
+        // let possibleMoves = board.map((row) => row.filter((square) => {
+        //     if (!square.value) {
+        //         return square.id;
+        //     }
+        // }));
+        // let gameMove = possibleMoves.map((row) => row[Math.floor(Math.random() * possibleMoves.length)]);
+        let gameMove = moves[Math.floor(Math.random() * moves.length)]
+        board.map((row) => row.map((square) => {
+            if (square.id === gameMove) {
+                if (isUserFirst) {
+                    square.value = "O";
+                } else {
+                    square.value = "X";
+                }
+            }
+        }));
     };
 
-    useEffect(() => {
-    }, [userMoves]);
+    if(!isUserFirst) {
+        generateGameMove();
+    };
+
+    const handleClick = (square: any) => {
+        if (isUserFirst) {
+            if (!square.value) {
+                square.value = "X";
+                dispatch(addUserMove(square.id));
+            } else {
+                return;
+            }
+        } else {
+            if (!square.value) {
+                square.value = "O";
+            } else {
+                return;
+            }
+        }
+        // dispatch(updateBoard(board));
+        setBoard([...board]);
+        generateGameMove();
+    };
 
     return (
         <div className="game">
             <div className="game-board">
             {
-                squares.map((square: number) => {
+                board.map((row) => row.map((square) => {
                     return (
                         <div
                             className="board-square"
-                            id={`${square}`}
-                            key={square}
+                            key={square.id}
                             onClick={() => handleClick(square)}
                         >
+                            {square.value}
                         </div>
-                    )
-                })
+                    );
+                }))
             }
             </div>
         </div>

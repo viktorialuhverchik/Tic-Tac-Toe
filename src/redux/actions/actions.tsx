@@ -1,9 +1,10 @@
+import { Square } from "../../types";
 import {
     AppActionTypes,
     GameActionTypes,
     TOGGLE_USER_FIRST,
     USER_MOVE,
-    UPDATE_MOVES
+    UPDATE_BOARD
 } from "../types";
 
 export const toggleUserFirst = (isUserFirst: boolean): AppActionTypes => ({
@@ -16,10 +17,7 @@ export const addUserMove = (userMove: number): GameActionTypes => ({
     userMove
 });
 
-export const updateMoves = (moves: number[], move: number): GameActionTypes => {
-    let updatedMoves: number[] = moves.filter((item: number) => move !== item);
-    return {
-        type: UPDATE_MOVES,
-        moves: updatedMoves
-    };
-};
+export const updateBoard = (board: Array<Array<Square>>) => ({
+    type: UPDATE_BOARD,
+    board
+});

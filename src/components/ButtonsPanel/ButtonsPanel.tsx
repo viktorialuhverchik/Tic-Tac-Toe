@@ -1,10 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleUserFirst } from '../../redux/actions/actions';
+import { PropsButtons } from '../../types';
 
 import './ButtonsPanel.css';
 
-const ButtonsPanel: FC = () => {
+const ButtonsPanel: FC<PropsButtons> = ({  userMoves }) => {
     
     const dispatch: any = useDispatch();
     const [isClickedX, setIsClickedX] = useState<boolean>(true);
@@ -27,13 +28,21 @@ const ButtonsPanel: FC = () => {
     return (
         <div className="buttons-panel">
             <button
-                className={`button ${!isClickedX ? "" : "clicked"}`}
+                className={
+                    `button 
+                    ${!isClickedX ? "" : "clicked"}
+                    ${!userMoves.length ? "" : "blocked"}`
+                }
                 onClick={() => setIsClickedX(true)}
             >
                 <span className="button-title">X</span>
             </button>
             <button
-                className={`button ${!isClickedO ? "" : "clicked"}`}
+                className={
+                    `button
+                    ${!isClickedO ? "" : "clicked"}
+                    ${!userMoves.length ? "" : "blocked"}`
+                }
                 onClick={() => setIsClickedO(true)}
             >
                 <span className="button-title">O</span>

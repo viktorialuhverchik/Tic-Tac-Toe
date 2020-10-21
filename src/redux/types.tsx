@@ -1,13 +1,15 @@
+import { Square } from "../types";
+
 export const TOGGLE_USER_FIRST = "TOGGLE_USER_FIRST";
 export const USER_MOVE = "USER_MOVE";
-export const UPDATE_MOVES = "UPDATE_MOVES";
+export const UPDATE_BOARD = "UPDATE_BOARD";
 
 export interface AppState {
     isUserFirst: boolean
 };
 
 export interface GameState {
-    moves: number[], 
+    moves: number[],
     userMoves: number[]
 };
 
@@ -21,10 +23,10 @@ interface AddUserMove {
     userMove: number
 };
 
-interface UpdateMoves {
-    type: typeof UPDATE_MOVES,
-    moves: number[]
+interface UpdateBoard {
+    type: typeof UPDATE_BOARD,
+    board: Array<Array<Square>>
 }
 
 export type AppActionTypes = ToggleUserFirst;
-export type GameActionTypes = AddUserMove | UpdateMoves;
+export type GameActionTypes = AddUserMove | UpdateBoard;
