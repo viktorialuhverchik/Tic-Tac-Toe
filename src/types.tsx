@@ -8,16 +8,16 @@ export interface State {
         isUserFirst: boolean
     },
     game: {
-        moves: number[],
-        // board: Array<Array<Square>>,
+        winningMoves: any,
+        board: Array<Array<Square>>,
         userMoves: number[]
     }
 }
 
 export interface PropsGame {
     isUserFirst: boolean,
-    moves: number[],
-    // board: Array<Array<Square>>,
+    winningMoves: any,
+    board: Array<Array<Square>>,
     userMoves: number[]
 }
 

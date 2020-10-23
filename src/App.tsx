@@ -9,8 +9,8 @@ import './App.css';
 const App: FC = () => {
 
     const isUserFirst: boolean = useSelector((state: any) => state.app.isUserFirst);
-    // const board: Array<Array<Square>> = useSelector((state: State) => state.game.board);
-    const moves: number[] = useSelector((state: State) => state.game.moves);
+    const winningMoves: any = useSelector((state: State) => state.game.winningMoves);
+    const board: Array<Array<Square>>  = useSelector((state: State) => state.game.board);
     const userMoves: number[] = useSelector((state: State) => state.game.userMoves);
 
     return (
@@ -20,7 +20,7 @@ const App: FC = () => {
             </header>
             <h3 className="app-text">Choise your move:</h3>
             <ButtonsPanel userMoves={userMoves} />
-            <Game isUserFirst={isUserFirst} moves={moves} userMoves={userMoves} />
+            <Game isUserFirst={isUserFirst} winningMoves={winningMoves} board={board} userMoves={userMoves} />
         </div>
     );
 }
