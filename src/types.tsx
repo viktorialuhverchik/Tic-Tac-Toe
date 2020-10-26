@@ -3,24 +3,33 @@ export interface Square {
     value: string
 }
 
+export interface WinningMove {
+    X: Array<number>,
+    O: Array<number>
+}
+
 export interface State {
     app: {
         isUserFirst: boolean
     },
     game: {
-        winningMoves: any,
+        winningMoves: Array<WinningMove>,
         board: Array<Array<Square>>,
-        userMoves: number[]
+        userMoves: number[],
+        winner: string
     }
 }
 
 export interface PropsGame {
     isUserFirst: boolean,
-    winningMoves: any,
-    board: Array<Array<Square>>,
-    userMoves: number[]
+    winningMoves: Array<WinningMove>,
+    board: Array<Array<Square>>
 }
 
 export interface PropsButtons {
     userMoves: number[]
+}
+
+export interface PropsShowWinner {
+    winner: string
 }

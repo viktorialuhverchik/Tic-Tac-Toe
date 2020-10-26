@@ -1,4 +1,12 @@
-import { GameActionTypes, GameState, UPDATE_BOARD, UPDATE_WINNING_MOVES, USER_MOVE } from '../types';
+import {
+    GameState,
+    INIT_GAME,
+    SET_WINNER,
+    UPDATE_BOARD,
+    UPDATE_WINNING_MOVES,
+    USER_MOVE
+} from '../types';
+import { Square, WinningMove } from '../../types';
 
 const initialState: GameState = {
     winningMoves: [
@@ -79,22 +87,34 @@ const initialState: GameState = {
             }
         ]
     ],
-    userMoves: []
+    userMoves: [],
+    winner: ""
 };
 
-export const gameReducer = (state = initialState, action: GameActionTypes) => {
+export const gameReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case USER_MOVE:
-            state.userMoves.push(action.userMove);
-            return { ...state, userMoves: state.userMoves };
+            return { ...state, userMoves: [...state.userMoves, action.userMove] };
         case UPDATE_WINNING_MOVES:
-            let updatedWinningMoves = state.winningMoves.map((moves: any) => {
-                moves[action.square.value] = moves[action.square.value].filter((move: any) => move !== action.square.id);
-                return moves;
+            let updatedWinningMoves: Array<WinningMove> = state.winningMoves.map((moves: any) => {
+                return Object.assign({}, moves, {
+                    [action.square.value]: moves[action.square.value].filter((move: number) => move !== action.square.id)
+                });
             });
             return { ...state, winningMoves: updatedWinningMoves };
         case UPDATE_BOARD:
-            return { ...state, board: action.board };
+            let updatedBoard: Array<Array<Square>> = state.board.map((row: Array<Square>) => row.map((square: Square) => {
+                if (action.square.id === square.id) {
+                    return Object.assign({}, action.square);
+                }
+    
+                return square;
+            }));
+            return { ...state, board: updatedBoard };
+        case SET_WINNER:
+            return { ...state, winner: action.winner };
+        case INIT_GAME:
+            return initialState;
         default: 
             return state;
     };

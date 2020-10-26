@@ -1,21 +1,5 @@
 import { Square } from "../../types";
-import { updateBoard, updateWinningMoves } from './actions';
-
-const renderBoard = (isUserFirst: boolean, board: Array<Array<Square>>, gameMove: number): Array<Array<Square>> => {
-    return board.map((row) => row.map((square) => {
-        if (square.id === gameMove) {
-            if (isUserFirst) {
-                if(!square.value) {
-                    square.value = "O";
-                }
-            } else {
-                if(!square.value) {
-                    square.value = "X";
-                }
-            }}
-        return square;
-    }));
-};
+import { setWinner, updateBoard, updateWinningMoves } from './actions';
 
 const findRowIndex = (gameMove: number) => {
     return gameMove <= 3 ? 0 : (gameMove > 3 && gameMove <= 6) ? 1 : 2;
@@ -30,6 +14,7 @@ const findWinningSquare = (board: Array<Array<Square>>, gameMove: number, dispat
 
 const checkWinningMoves = (winningMoves: any, symbol: string, board: any) => {
     let foundMove = winningMoves.find((move: any) => move[symbol].length === 1 && !isSquareFull(board, move[symbol][0]));
+
     return foundMove ? foundMove[symbol][0] : 0;
 };
 
@@ -45,75 +30,80 @@ export const generateGameMove = (isUserFirst: boolean, board: Array<Array<Square
     let cross = [2, 4, 6, 8];
     let symbolGameWinningMoves: string = isUserFirst ? "O" : "X";
     let symbolUserWinningMoves: string = isUserFirst ? "X" : "O";
-    let gameMove: number = checkWinningMoves(winningMoves, symbolGameWinningMoves, board);
+    let square: Square = {
+        id: checkWinningMoves(winningMoves, symbolGameWinningMoves, board),
+        value: symbolGameWinningMoves
+    };
 
-    if (gameMove !== 0 && !isSquareFull(board, gameMove)) {
-        dispatch(updateBoard(renderBoard(isUserFirst, board, gameMove)));
-        findWinningSquare(board, gameMove, dispatch);
+    if (square.id !== 0 && !isSquareFull(board, square.id)) {
+        findWinningSquare(board, square.id, dispatch);
+        dispatch(updateBoard(square));
+        dispatch(updateWinningMoves(square));
         return;
     }
     
-    gameMove = checkWinningMoves(winningMoves, symbolUserWinningMoves, board);
+    square.id = checkWinningMoves(winningMoves, symbolUserWinningMoves, board);
 
-    if (gameMove !== 0 && !isSquareFull(board, gameMove)) {
-        dispatch(updateBoard(renderBoard(isUserFirst, board, gameMove)));
-        findWinningSquare(board, gameMove, dispatch);
+    if (square.id !== 0 && !isSquareFull(board, square.id)) {
+        findWinningSquare(board, square.id, dispatch);
+        dispatch(updateBoard(square));
+        dispatch(updateWinningMoves(square));
         return;
     }
 
-    gameMove = Infinity;
+    square.id = Infinity;
 
-    while(gameMove) {
+    while(square.id) {
         const index = Math.floor(Math.random() * diagonals.length);
-        gameMove = diagonals[index];
+        square.id = diagonals[index];
 
-        if (gameMove && !isSquareFull(board, gameMove)) {
-            dispatch(updateBoard(renderBoard(isUserFirst, board, gameMove)));
-            findWinningSquare(board, gameMove, dispatch);
+        if (square.id && !isSquareFull(board, square.id)) {
+            findWinningSquare(board, square.id, dispatch);
+            dispatch(updateBoard(square));
+            dispatch(updateWinningMoves(square));
             return;
         } else {
             diagonals.splice(index, 1);
         }
     }
 
-    gameMove = 5;
+    square.id = 5;
 
-    if (!isSquareFull(board, gameMove)) {
-        dispatch(updateBoard(renderBoard(isUserFirst, board, gameMove)));
-        findWinningSquare(board, gameMove, dispatch);
+    if (!isSquareFull(board, square.id)) {
+        findWinningSquare(board, square.id, dispatch);
+        dispatch(updateBoard(square));
+        dispatch(updateWinningMoves(square));
         return;
     }
 
-    while(gameMove) {
+    while(square.id) {
         const index = Math.floor(Math.random() * cross.length);
-        gameMove = cross[index];
+        square.id = cross[index];
 
-        if (gameMove && !isSquareFull(board, gameMove)) {
-            dispatch(updateBoard(renderBoard(isUserFirst, board, gameMove)));
-            findWinningSquare(board, gameMove, dispatch);
+        if (square.id && !isSquareFull(board, square.id)) {
+            findWinningSquare(board, square.id, dispatch);
+            dispatch(updateBoard(square));
+            dispatch(updateWinningMoves(square));
             return;
         } else {
             cross.splice(index, 1);
         }
     }
 
+    checkWinner(winningMoves, dispatch);
+
+    dispatch(setWinner("Tie"));
     return;
 };
 
-export const checkWinner = (winningMoves: any) => {
-    // winningMoves.forEach((moves: any) => {
-    //     moves["X"].forEach((lines: any) => {
-    //         if (!lines.length) {
-    //             console.log("win X");
-    //         }
-    //     });
-    // });
-    // winningMoves.forEach((moves: any) => {
-    //     moves["O"].forEach((lines: any) => {
-    //         if (!lines.length) {
-    //             console.log("win O");
-    //         }
-    //     });
-    // });
-    console.log("check");
+export const checkWinner = (winningMoves: any, dispatch: any) => {
+    let xWin = winningMoves.find((move: any) => move["X"].length === 0);
+    if(xWin) {
+        return dispatch(setWinner("X"));
+    }
+
+    let oWin = winningMoves.find((move: any) => move["O"].length === 0);
+    if(oWin) {
+        return dispatch(setWinner("O"));
+    }
 };

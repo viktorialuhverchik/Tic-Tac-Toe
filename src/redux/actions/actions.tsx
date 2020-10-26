@@ -5,7 +5,9 @@ import {
     TOGGLE_USER_FIRST,
     USER_MOVE,
     UPDATE_WINNING_MOVES,
-    UPDATE_BOARD
+    UPDATE_BOARD,
+    SET_WINNER,
+    INIT_GAME
 } from "../types";
 
 export const toggleUserFirst = (isUserFirst: boolean): AppActionTypes => ({
@@ -18,12 +20,28 @@ export const addUserMove = (userMove: number): GameActionTypes => ({
     userMove
 });
 
-export const updateWinningMoves = (square: any): GameActionTypes => ({
-    type: UPDATE_WINNING_MOVES,
-    square
+export const updateWinningMoves = (square: Square) => {
+    return (dispatch: any) => {
+        dispatch({
+            type: UPDATE_WINNING_MOVES,
+            square
+        });
+    }
+};
+export const updateBoard = (square: Square) => {
+    return (dispatch: any) => {
+        dispatch({
+            type: UPDATE_BOARD,
+            square
+        });
+    }
+};
+
+export const setWinner = (winner: string): GameActionTypes => ({
+    type: SET_WINNER,
+    winner
 });
 
-export const updateBoard = (board: Array<Array<Square>>) => ({
-    type: UPDATE_BOARD,
-    board
+export const initGame = (): GameActionTypes => ({
+    type: INIT_GAME
 });
