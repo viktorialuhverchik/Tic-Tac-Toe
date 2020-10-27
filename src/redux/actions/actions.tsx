@@ -19,7 +19,7 @@ export const addUserMove = (square: Square): GameActionTypes => ({
     square
 });
 
-export const updateBoard = (square: Square) => ({
+export const updateBoard = (square: Square): GameActionTypes => ({
     type: UPDATE_BOARD,
     square
 });

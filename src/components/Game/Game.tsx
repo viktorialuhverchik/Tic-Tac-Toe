@@ -1,8 +1,8 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Square, State, PropsGame, WinningMove } from '../../types';
-import { addUserMove, initGame, updateBoard } from '../../redux/actions/actions';
-import { checkWinner, generateGameMove } from '../../redux/actions/helpers';
+import { addUserMove, initGame, setWinner, updateBoard } from '../../redux/actions/actions';
+import { generateGameMove } from '../../redux/actions/helpers';
 
 import './Game.css';
 
@@ -29,12 +29,14 @@ const Game: FC<PropsGame> = ({ userMoves, winner }) => {
     }, [isUserFirst]);
 
     useEffect(() => {
+        if (winner) return;
         if (!isUserFirst || (isUserFirst && userMoves.length)) {
             dispatch(generateGameMove(isUserFirst, board, winningMoves));
         }
+        if (!isUserFirst && userMoves.length === 4) {
+            dispatch(setWinner("Tie!"));
+        }
     },[userMoves, isUserFirst]);
-
-    
 
     return (
         <div className="game">
@@ -43,7 +45,7 @@ const Game: FC<PropsGame> = ({ userMoves, winner }) => {
                 board.map((row) => row.map((square) => {
                     return (
                         <div
-                            className="board-square"
+                            className={`board-square ${!winner ? "" : "blocked"}`}
                             key={square.id}
                             onClick={() => handleClick(square)}
                         >

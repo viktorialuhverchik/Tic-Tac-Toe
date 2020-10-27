@@ -7,9 +7,9 @@ import './ButtonsPanel.css';
 
 const ButtonsPanel: FC<PropsButtons> = ({  userMoves }) => {
     
-    const dispatch: any = useDispatch();
     const [isClickedX, setIsClickedX] = useState<boolean>(true);
     const [isClickedO, setIsClickedO] = useState<boolean>(false);
+    const dispatch: any = useDispatch();
 
     useEffect(() => {
         if (isClickedO) {

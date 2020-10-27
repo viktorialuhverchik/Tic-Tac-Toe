@@ -1,24 +1,24 @@
-import { Square } from "../../types";
+import { Square, WinningMove } from "../../types";
 import { setWinner, updateBoard } from './actions';
 
 const findRowIndex = (gameMove: number) => {
     return gameMove <= 3 ? 0 : (gameMove > 3 && gameMove <= 6) ? 1 : 2;
 };
 
-const checkWinningMoves = (winningMoves: any, symbol: string, board: any) => {
-    let foundMove = winningMoves.find((move: any) => move[symbol].length === 1 && !isSquareFull(board, move[symbol][0]));
+const checkWinningMoves = (winningMoves: Array<WinningMove>, symbol: string, board: any) => {
+    let foundMove: any = winningMoves.find((move: any) => move[symbol].length === 1 && !isSquareFull(board, move[symbol][0]));
 
     return foundMove ? foundMove[symbol][0] : 0;
 };
 
 const isSquareFull = (board: Array<Array<Square>>, squareIndex: number): boolean => {
     let rowIndex: number = findRowIndex(squareIndex);
-    let square: any = board[rowIndex][squareIndex - rowIndex * 3 - 1];
+    let square: Square = board[rowIndex][squareIndex - rowIndex * 3 - 1];
 
     return !!square.value;
 }
 
-export const generateGameMove = (isUserFirst: boolean, board: Array<Array<Square>>, winningMoves: any) => {
+export const generateGameMove = (isUserFirst: boolean, board: Array<Array<Square>>, winningMoves: Array<WinningMove>) => {
     return (dispatch: any) => {
         let diagonals = [1, 3, 7, 9];
         let cross = [2, 4, 6, 8];
@@ -44,7 +44,7 @@ export const generateGameMove = (isUserFirst: boolean, board: Array<Array<Square
         square.id = Infinity;
 
         while(square.id) {
-            const index = Math.floor(Math.random() * diagonals.length);
+            const index: number = Math.floor(Math.random() * diagonals.length);
             square.id = diagonals[index];
 
             if (square.id && !isSquareFull(board, square.id)) {
@@ -63,7 +63,7 @@ export const generateGameMove = (isUserFirst: boolean, board: Array<Array<Square
         }
 
         while(square.id) {
-            const index = Math.floor(Math.random() * cross.length);
+            const index: number = Math.floor(Math.random() * cross.length);
             square.id = cross[index];
 
             if (square.id && !isSquareFull(board, square.id)) {
@@ -74,23 +74,7 @@ export const generateGameMove = (isUserFirst: boolean, board: Array<Array<Square
             }
         }
 
-        dispatch(checkWinner(winningMoves));
-
-        dispatch(setWinner("Tie"));
+        dispatch(setWinner("Tie!"));
         return;
-    }
-};
-
-export const checkWinner = (winningMoves: any) => {
-    return (dispatch: any) => {
-        let xWin = winningMoves.find((move: any) => move["X"].length === 0);
-        if(xWin) {
-            return dispatch(setWinner("X"));
-        }
-
-        let oWin = winningMoves.find((move: any) => move["O"].length === 0);
-        if(oWin) {
-            return dispatch(setWinner("O"));
-        }
     }
 };

@@ -12,8 +12,10 @@ const ShowWinner: FC<PropsShowWinner> = ({  winner }) => {
     return (
         <div className="show-winner">
             <div className="message">
-                {winner === "Tie" ? <h1 className="message-title">{winner}!</h1> : <h1 className="message-title">{winner} win!</h1>}
-                <button className="button-again" onClick={() => dispatch(initGame())}>Play again</button>
+                <h1 className="message-title">{winner}</h1>
+                <button className="button-again" onClick={() => dispatch(initGame())}>
+                    <span className="button-title">Play again</span>
+                </button>
             </div>
         </div>
     );

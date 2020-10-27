@@ -1,4 +1,5 @@
 import {
+    GameActionTypes,
     GameState,
     INIT_GAME,
     SET_WINNER,
@@ -90,7 +91,7 @@ const initialState: GameState = {
     winner: ""
 };
 
-export const gameReducer = (state = initialState, action: any) => {
+export const gameReducer = (state = initialState, action: GameActionTypes) => {
     switch (action.type) {
         case USER_MOVE:
             return { ...state, userMoves: [...state.userMoves, action.square.id] };
@@ -107,9 +108,14 @@ export const gameReducer = (state = initialState, action: any) => {
                 }
                 return square;
             }));
-            return { ...state, board: updatedBoard, winningMoves: updatedWinningMoves };
+            let winner;
+            let isFindWinner = updatedWinningMoves.find((move: any) => move[action.square.value].length === 0);
+            if (isFindWinner) {
+                winner = `${action.square.value} win!`;
+            }
+            return { ...state, board: updatedBoard, winningMoves: updatedWinningMoves, winner };
         case SET_WINNER:
-            return { ...state, winner: action.winner };
+            return { ...state, winner: action.winner};
         case INIT_GAME:
             return initialState;
         default: 
