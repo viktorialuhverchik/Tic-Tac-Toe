@@ -1,40 +1,40 @@
-import React, { FC, useCallback, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { PropsGame } from '../../types';
-import { addUserMove, updateBoard, updateWinningMoves } from '../../redux/actions/actions';
+import React, { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Square, State, PropsGame, WinningMove } from '../../types';
+import { addUserMove, initGame, updateBoard } from '../../redux/actions/actions';
 import { checkWinner, generateGameMove } from '../../redux/actions/helpers';
 
 import './Game.css';
 
-const Game: FC<PropsGame> = ({ isUserFirst, winningMoves, board }) => {
+const Game: FC<PropsGame> = ({ userMoves, winner }) => {
 
+    const isUserFirst: boolean = useSelector((state: State) => state.app.isUserFirst);
+    const winningMoves: Array<WinningMove> = useSelector((state: State) => state.game.winningMoves);
+    const board: Array<Array<Square>>  = useSelector((state: State) => state.game.board);
     const dispatch: any = useDispatch();
 
-    const handleClick = (clickedSquare: any) => {
+    const handleClick = (clickedSquare: Square) => {
         if (clickedSquare.value) return;
 
         const updatedSquare = Object.assign({}, clickedSquare, {
             value: isUserFirst ? "X" : "O"
         });
 
-        dispatch(addUserMove(updatedSquare.id));
+        dispatch(addUserMove(updatedSquare));
         dispatch(updateBoard(updatedSquare));
-        dispatch(updateWinningMoves(updatedSquare));
-        debugger;
-
-        a();
     };
 
-    const a = () => {
-        dispatch(generateGameMove(isUserFirst, board, winningMoves, dispatch));
-
-    }
+    useEffect(() => {
+        dispatch(initGame());
+    }, [isUserFirst]);
 
     useEffect(() => {
-        if(!isUserFirst) {
-            generateGameMove(isUserFirst, board, winningMoves, dispatch);
+        if (!isUserFirst || (isUserFirst && userMoves.length)) {
+            dispatch(generateGameMove(isUserFirst, board, winningMoves));
         }
-    },[isUserFirst]);
+    },[userMoves, isUserFirst]);
+
+    
 
     return (
         <div className="game">

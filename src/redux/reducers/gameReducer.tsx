@@ -3,7 +3,6 @@ import {
     INIT_GAME,
     SET_WINNER,
     UPDATE_BOARD,
-    UPDATE_WINNING_MOVES,
     USER_MOVE
 } from '../types';
 import { Square, WinningMove } from '../../types';
@@ -94,23 +93,21 @@ const initialState: GameState = {
 export const gameReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case USER_MOVE:
-            return { ...state, userMoves: [...state.userMoves, action.userMove] };
-        case UPDATE_WINNING_MOVES:
+            return { ...state, userMoves: [...state.userMoves, action.square.id] };
+        case UPDATE_BOARD:
             let updatedWinningMoves: Array<WinningMove> = state.winningMoves.map((moves: any) => {
                 return Object.assign({}, moves, {
                     [action.square.value]: moves[action.square.value].filter((move: number) => move !== action.square.id)
                 });
             });
-            return { ...state, winningMoves: updatedWinningMoves };
-        case UPDATE_BOARD:
+
             let updatedBoard: Array<Array<Square>> = state.board.map((row: Array<Square>) => row.map((square: Square) => {
                 if (action.square.id === square.id) {
                     return Object.assign({}, action.square);
                 }
-    
                 return square;
             }));
-            return { ...state, board: updatedBoard };
+            return { ...state, board: updatedBoard, winningMoves: updatedWinningMoves };
         case SET_WINNER:
             return { ...state, winner: action.winner };
         case INIT_GAME:

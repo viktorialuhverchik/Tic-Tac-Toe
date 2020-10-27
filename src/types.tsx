@@ -20,14 +20,13 @@ export interface State {
     }
 }
 
-export interface PropsGame {
-    isUserFirst: boolean,
-    winningMoves: Array<WinningMove>,
-    board: Array<Array<Square>>
-}
-
 export interface PropsButtons {
     userMoves: number[]
+}
+
+export interface PropsGame {
+    userMoves: number[],
+    winner: string
 }
 
 export interface PropsShowWinner {

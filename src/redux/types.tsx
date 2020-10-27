@@ -2,7 +2,6 @@ import { Square, WinningMove } from "../types";
 
 export const TOGGLE_USER_FIRST = "TOGGLE_USER_FIRST";
 export const USER_MOVE = "USER_MOVE";
-export const UPDATE_WINNING_MOVES = "UPDATE_WINNING_MOVES";
 export const UPDATE_BOARD = "UPDATE_BOARD";
 export const INIT_GAME = "INIT_GAME";
 export const SET_WINNER = "SET_WINNER";
@@ -25,18 +24,13 @@ interface ToggleUserFirst {
 
 interface AddUserMove {
     type: typeof USER_MOVE,
-    userMove: number
+    square: Square
 };
 
-// interface UpdateWinningMoves {
-//     type: typeof UPDATE_WINNING_MOVES,
-//     square: Square
-// };
-
-// interface UpdateBoard {
-//     type: typeof UPDATE_BOARD,
-//     square: Square
-// }
+interface UpdateBoard {
+    type: typeof UPDATE_BOARD,
+    square: Square
+}
 
 interface SetWinner {
     type: typeof SET_WINNER,
@@ -48,4 +42,4 @@ interface InitGAme {
 }
 
 export type AppActionTypes = ToggleUserFirst;
-export type GameActionTypes = AddUserMove | SetWinner | InitGAme;
+export type GameActionTypes = AddUserMove | UpdateBoard | SetWinner | InitGAme;
