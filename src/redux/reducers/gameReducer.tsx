@@ -8,7 +8,7 @@ import {
 } from '../types';
 import { Square, WinningMove } from '../../types';
 
-const initialState: GameState = {
+export const initialState: GameState = {
     winningMoves: [
         {
             X: [1, 2, 3],
@@ -112,6 +112,8 @@ export const gameReducer = (state = initialState, action: GameActionTypes) => {
             let isFindWinner = updatedWinningMoves.find((move: any) => move[action.square.value].length === 0);
             if (isFindWinner) {
                 winner = `${action.square.value} win!`;
+            } else {
+                winner = "";
             }
             return { ...state, board: updatedBoard, winningMoves: updatedWinningMoves, winner };
         case SET_WINNER:
