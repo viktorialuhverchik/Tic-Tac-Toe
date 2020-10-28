@@ -29,6 +29,7 @@ Object {
             class="button 
                     clicked
                     "
+            data-testid="X"
           >
             <span
               class="button-title"
@@ -40,6 +41,7 @@ Object {
             class="button
                     
                     "
+            data-testid="O"
           >
             <span
               class="button-title"
@@ -56,30 +58,39 @@ Object {
           >
             <div
               class="board-square "
+              data-testid="square 1"
             />
             <div
               class="board-square "
+              data-testid="square 2"
             />
             <div
               class="board-square "
+              data-testid="square 3"
             />
             <div
               class="board-square "
+              data-testid="square 4"
             />
             <div
               class="board-square "
+              data-testid="square 5"
             />
             <div
               class="board-square "
+              data-testid="square 6"
             />
             <div
               class="board-square "
+              data-testid="square 7"
             />
             <div
               class="board-square "
+              data-testid="square 8"
             />
             <div
               class="board-square "
+              data-testid="square 9"
             />
           </div>
         </div>
@@ -112,6 +123,7 @@ Object {
           class="button 
                     clicked
                     "
+          data-testid="X"
         >
           <span
             class="button-title"
@@ -123,6 +135,7 @@ Object {
           class="button
                     
                     "
+          data-testid="O"
         >
           <span
             class="button-title"
@@ -139,30 +152,39 @@ Object {
         >
           <div
             class="board-square "
+            data-testid="square 1"
           />
           <div
             class="board-square "
+            data-testid="square 2"
           />
           <div
             class="board-square "
+            data-testid="square 3"
           />
           <div
             class="board-square "
+            data-testid="square 4"
           />
           <div
             class="board-square "
+            data-testid="square 5"
           />
           <div
             class="board-square "
+            data-testid="square 6"
           />
           <div
             class="board-square "
+            data-testid="square 7"
           />
           <div
             class="board-square "
+            data-testid="square 8"
           />
           <div
             class="board-square "
+            data-testid="square 9"
           />
         </div>
       </div>

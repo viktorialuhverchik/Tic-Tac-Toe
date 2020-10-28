@@ -33,6 +33,7 @@ const ButtonsPanel: FC<PropsButtons> = ({  userMoves }) => {
                     ${!isClickedX ? "" : "clicked"}
                     ${!userMoves.length ? "" : "blocked"}`
                 }
+                data-testid="X"
                 onClick={() => setIsClickedX(true)}
             >
                 <span className="button-title">X</span>
@@ -43,6 +44,7 @@ const ButtonsPanel: FC<PropsButtons> = ({  userMoves }) => {
                     ${!isClickedO ? "" : "clicked"}
                     ${!userMoves.length ? "" : "blocked"}`
                 }
+                data-testid="O"
                 onClick={() => setIsClickedO(true)}
             >
                 <span className="button-title">O</span>

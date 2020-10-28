@@ -13,32 +13,41 @@ Object {
         >
           <div
             class="board-square "
+            data-testid="square 1"
           />
           <div
             class="board-square "
+            data-testid="square 2"
           />
           <div
             class="board-square "
+            data-testid="square 3"
           />
           <div
             class="board-square "
+            data-testid="square 4"
           />
           <div
             class="board-square "
+            data-testid="square 5"
           />
           <div
             class="board-square "
+            data-testid="square 6"
           />
           <div
             class="board-square "
+            data-testid="square 7"
           >
             O
           </div>
           <div
             class="board-square "
+            data-testid="square 8"
           />
           <div
             class="board-square "
+            data-testid="square 9"
           />
         </div>
       </div>
@@ -53,32 +62,41 @@ Object {
       >
         <div
           class="board-square "
+          data-testid="square 1"
         />
         <div
           class="board-square "
+          data-testid="square 2"
         />
         <div
           class="board-square "
+          data-testid="square 3"
         />
         <div
           class="board-square "
+          data-testid="square 4"
         />
         <div
           class="board-square "
+          data-testid="square 5"
         />
         <div
           class="board-square "
+          data-testid="square 6"
         />
         <div
           class="board-square "
+          data-testid="square 7"
         >
           O
         </div>
         <div
           class="board-square "
+          data-testid="square 8"
         />
         <div
           class="board-square "
+          data-testid="square 9"
         />
       </div>
     </div>

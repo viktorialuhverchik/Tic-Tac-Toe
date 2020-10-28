@@ -21,6 +21,15 @@ describe('actions', () => {
         expect(actions.addUserMove(square)).toEqual(expectedAction);
     });
 
+    it('should create an add game move action', () => {
+        let square: Square = {id: 1, value: "O"};
+        const expectedAction = {
+            type: types.USER_MOVE,
+            square
+        };
+        expect(actions.addUserMove(square)).toEqual(expectedAction);
+    });
+
     it('should create an update board action', () => {
         let square: Square = {id: 2, value: "X"};
         const expectedAction = {

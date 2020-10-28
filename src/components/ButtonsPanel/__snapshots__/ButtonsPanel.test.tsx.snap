@@ -12,6 +12,7 @@ Object {
           class="button 
                     clicked
                     blocked"
+          data-testid="X"
         >
           <span
             class="button-title"
@@ -23,6 +24,7 @@ Object {
           class="button
                     
                     blocked"
+          data-testid="O"
         >
           <span
             class="button-title"
@@ -41,6 +43,7 @@ Object {
         class="button 
                     clicked
                     blocked"
+        data-testid="X"
       >
         <span
           class="button-title"
@@ -52,6 +55,7 @@ Object {
         class="button
                     
                     blocked"
+        data-testid="O"
       >
         <span
           class="button-title"

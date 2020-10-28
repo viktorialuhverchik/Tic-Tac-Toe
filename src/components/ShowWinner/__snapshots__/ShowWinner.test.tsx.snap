@@ -16,6 +16,7 @@ Object {
           />
           <button
             class="button-again"
+            data-testid="again"
           >
             <span
               class="button-title"
@@ -39,6 +40,7 @@ Object {
         />
         <button
           class="button-again"
+          data-testid="again"
         >
           <span
             class="button-title"

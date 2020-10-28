@@ -47,6 +47,7 @@ const Game: FC<PropsGame> = ({ userMoves, winner }) => {
                         <div
                             className={`board-square ${!winner ? "" : "blocked"}`}
                             key={square.id}
+                            data-testid={`square ${square.id}`}
                             onClick={() => handleClick(square)}
                         >
                             {square.value}
