@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleUserFirst } from '../../redux/actions/actions';
-import { PropsButtons } from '../../types';
+import { Moves, PropsButtons } from '../../types';
 
 import './ButtonsPanel.css';
 
@@ -36,7 +36,7 @@ const ButtonsPanel: FC<PropsButtons> = ({  userMoves }) => {
                 data-testid="X"
                 onClick={() => setIsClickedX(true)}
             >
-                <span className="button-title">X</span>
+                <span className="button-title">{Moves.X}</span>
             </button>
             <button
                 className={
@@ -47,7 +47,7 @@ const ButtonsPanel: FC<PropsButtons> = ({  userMoves }) => {
                 data-testid="O"
                 onClick={() => setIsClickedO(true)}
             >
-                <span className="button-title">O</span>
+                <span className="button-title">{Moves.O}</span>
             </button>
         </div>
     );

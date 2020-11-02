@@ -5,7 +5,7 @@ import {
     TOGGLE_USER_FIRST,
     USER_MOVE,
     UPDATE_BOARD,
-    SET_WINNER,
+    SET_TIE,
     INIT_GAME
 } from "../types";
 
@@ -24,9 +24,8 @@ export const updateBoard = (square: Square): GameActionTypes => ({
     square
 });
 
-export const setWinner = (winner: string): GameActionTypes => ({
-    type: SET_WINNER,
-    winner
+export const setTie = (): GameActionTypes => ({
+    type: SET_TIE
 });
 
 export const initGame = (): GameActionTypes => ({

@@ -40,11 +40,9 @@ describe('actions', () => {
     });
 
     it('should create an set winner action', () => {
-        let winner: string = "X";
         const expectedAction = {
-            type: types.SET_WINNER,
-            winner
+            type: types.SET_TIE
         };
-        expect(actions.setWinner(winner)).toEqual(expectedAction);
+        expect(actions.setTie()).toEqual(expectedAction);
     });
 });

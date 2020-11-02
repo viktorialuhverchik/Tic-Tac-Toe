@@ -4,7 +4,7 @@ export const TOGGLE_USER_FIRST = "TOGGLE_USER_FIRST";
 export const USER_MOVE = "USER_MOVE";
 export const UPDATE_BOARD = "UPDATE_BOARD";
 export const INIT_GAME = "INIT_GAME";
-export const SET_WINNER = "SET_WINNER";
+export const SET_TIE = "SET_TIE";
 
 export interface AppState {
     isUserFirst: boolean
@@ -32,9 +32,8 @@ interface UpdateBoard {
     square: Square
 }
 
-interface SetWinner {
-    type: typeof SET_WINNER,
-    winner: string
+interface SetTie {
+    type: typeof SET_TIE
 }
 
 interface InitGAme {
@@ -42,4 +41,4 @@ interface InitGAme {
 }
 
 export type AppActionTypes = ToggleUserFirst;
-export type GameActionTypes = AddUserMove | UpdateBoard | SetWinner | InitGAme;
+export type GameActionTypes = AddUserMove | UpdateBoard | SetTie | InitGAme;

@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Square, State, PropsGame, WinningMove } from '../../types';
-import { addUserMove, initGame, setWinner, updateBoard } from '../../redux/actions/actions';
+import { Square, State, PropsGame, WinningMove, Moves } from '../../types';
+import { addUserMove, initGame, setTie, updateBoard } from '../../redux/actions/actions';
 import { generateGameMove } from '../../redux/actions/helpers';
 
 import './Game.css';
@@ -17,7 +17,7 @@ const Game: FC<PropsGame> = ({ userMoves, winner }) => {
         if (clickedSquare.value) return;
 
         const updatedSquare = Object.assign({}, clickedSquare, {
-            value: isUserFirst ? "X" : "O"
+            value: isUserFirst ? Moves.X : Moves.O
         });
 
         dispatch(addUserMove(updatedSquare));
@@ -34,7 +34,7 @@ const Game: FC<PropsGame> = ({ userMoves, winner }) => {
             dispatch(generateGameMove(isUserFirst, board, winningMoves));
         }
         if (!isUserFirst && userMoves.length === 4) {
-            dispatch(setWinner("Tie!"));
+            dispatch(setTie());
         }
     },[userMoves, isUserFirst]);
 

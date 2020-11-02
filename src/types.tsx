@@ -32,3 +32,8 @@ export interface PropsGame {
 export interface PropsShowWinner {
     winner: string
 }
+
+export enum Moves {
+    X = "X",
+    O = "O"
+};

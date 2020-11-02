@@ -2,11 +2,12 @@ import {
     GameActionTypes,
     GameState,
     INIT_GAME,
-    SET_WINNER,
+    SET_TIE,
     UPDATE_BOARD,
     USER_MOVE
 } from '../types';
 import { Square, WinningMove } from '../../types';
+import { copyUpdatedBoard, copyUpdatedWinningMoves, getWinner } from '../actions/helpers';
 
 export const initialState: GameState = {
     winningMoves: [
@@ -96,28 +97,12 @@ export const gameReducer = (state = initialState, action: GameActionTypes) => {
         case USER_MOVE:
             return { ...state, userMoves: [...state.userMoves, action.square.id] };
         case UPDATE_BOARD:
-            let updatedWinningMoves: Array<WinningMove> = state.winningMoves.map((moves: any) => {
-                return Object.assign({}, moves, {
-                    [action.square.value]: moves[action.square.value].filter((move: number) => move !== action.square.id)
-                });
-            });
-
-            let updatedBoard: Array<Array<Square>> = state.board.map((row: Array<Square>) => row.map((square: Square) => {
-                if (action.square.id === square.id) {
-                    return Object.assign({}, action.square);
-                }
-                return square;
-            }));
-            let winner;
-            let isFindWinner = updatedWinningMoves.find((move: any) => move[action.square.value].length === 0);
-            if (isFindWinner) {
-                winner = `${action.square.value} win!`;
-            } else {
-                winner = "";
-            }
+            let updatedBoard: Array<Array<Square>> = copyUpdatedBoard(state.board, action.square);
+            let updatedWinningMoves: Array<WinningMove> = copyUpdatedWinningMoves(state.winningMoves, action.square);
+            let winner: string = getWinner(updatedWinningMoves, action.square.value);
             return { ...state, board: updatedBoard, winningMoves: updatedWinningMoves, winner };
-        case SET_WINNER:
-            return { ...state, winner: action.winner};
+        case SET_TIE:
+            return { ...state, winner: "Tie!"};
         case INIT_GAME:
             return initialState;
         default: 
